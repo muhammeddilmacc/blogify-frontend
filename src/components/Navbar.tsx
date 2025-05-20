@@ -17,7 +17,7 @@ export default function Navbar() {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
-              <span className="text-2xl font-bold text-gray-900">Ali Çendek</span>
+              <span className="text-2xl font-bold text-gray-900">Blogify</span>
             </Link>
           </div>
 

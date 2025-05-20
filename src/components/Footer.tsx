@@ -129,7 +129,7 @@ export default function Footer() {
 
         <div className="mt-8 border-t border-gray-200 pt-8">
           <p className="text-base text-gray-400 text-center">
-            &copy; {currentYear} Ali Çendek | Tüm hakları saklıdır.
+            &copy; {currentYear} Blogify | Tüm hakları saklıdır.
           </p>
         </div>
       </div>

@@ -7,15 +7,15 @@ import Script from 'next/script';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Ali Çendek | Kişisel Blog',
-  description: 'Ali Çendek resmi web sitesi. Yazılar, şiirler ve makaleler.',
-  keywords: 'Ali Çendek, blog, yazar, şair, makale, edebiyat',
-  authors: [{ name: 'Ali Çendek' }],
+  title: 'Blogify | Kişisel Blog',
+  description: 'Blogify resmi web sitesi. Yazılar, şiirler ve makaleler.',
+  keywords: 'Blogify, blog, yazar, şair, makale, edebiyat',
+  authors: [{ name: 'Blogify' }],
   openGraph: {
-    title: 'Ali Çendek | Kişisel Blog',
-    description: 'Ali Çendek resmi web sitesi. Yazılar, şiirler ve makaleler.',
-    url: 'https://alicendek.vercel.app',
-    siteName: 'Ali Çendek',
+    title: 'Blogify | Kişisel Blog',
+    description: 'Blogify resmi web sitesi. Yazılar, şiirler ve makaleler.',
+    url: 'https://blogify.com',
+    siteName: 'Blogify',
     locale: 'tr_TR',
     type: 'website',
   },

@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://alicendek.vercel.app/sitemap.xml 
+Sitemap: https://blogify.com/sitemap.xml 

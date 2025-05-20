@@ -10,12 +10,12 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "alicendek.onrender.com",
+        hostname: "blogify.com",
         pathname: "/uploads/**",
       },
     ],
     unoptimized: true,
-    domains: ["localhost", "alicendek.onrender.com"],
+    domains: ["localhost", "blogify.com"],
     formats: ['image/webp'],
   },
   typescript: {
