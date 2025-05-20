@@ -1,0 +1,23 @@
+.prose .blockquote-custom {
+  @apply relative pl-8 pr-4 py-4 my-6 bg-gray-50 rounded-lg;
+  border-left: 4px solid #3b82f6;
+  quotes: """ """ "'" "'";
+}
+
+.prose .blockquote-custom::before {
+  content: open-quote;
+  @apply absolute text-5xl text-blue-500 opacity-25 font-serif;
+  top: -10px;
+  left: 10px;
+}
+
+.prose .blockquote-custom::after {
+  content: close-quote;
+  @apply absolute text-5xl text-blue-500 opacity-25 font-serif;
+  bottom: -35px;
+  right: 10px;
+}
+
+.prose .blockquote-custom p {
+  @apply text-gray-700 italic relative z-10;
+} 

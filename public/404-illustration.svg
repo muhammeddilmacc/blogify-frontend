@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800px" height="600px" viewBox="0 0 800 600" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(160, 100)">
+            <!-- 404 Text -->
+            <text font-family="Arial-BoldMT, Arial" font-size="150" font-weight="bold" fill="#4F46E5">
+                <tspan x="0" y="200">404</tspan>
+            </text>
+            
+            <!-- Decorative Elements -->
+            <circle fill="#93C5FD" cx="400" cy="150" r="20"/>
+            <circle fill="#818CF8" cx="450" cy="100" r="15"/>
+            <circle fill="#C7D2FE" cx="380" cy="80" r="10"/>
+            
+            <!-- Paper Airplane -->
+            <g transform="translate(50, 50)" fill="#4F46E5">
+                <path d="M0,0 L40,20 L0,40 L10,20 Z"/>
+            </g>
+            
+            <!-- Dotted Line -->
+            <path d="M100,50 Q200,100 300,50" stroke="#E0E7FF" stroke-width="3" stroke-dasharray="5,5"/>
+        </g>
+    </g>
+</svg>
