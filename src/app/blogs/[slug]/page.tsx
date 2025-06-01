@@ -11,6 +11,8 @@ import { usePostService } from '@/features/blogs/services/usePostService';
 import { CategoryType } from '@/features/blogs/types/blog.types';
 import './page.css';
 import { LikeButton } from '@/features/blogs/components/LikeButton';
+import CommentList from '@/components/shared/CommentList';
+import CommentForm from '@/components/shared/CommentForm';
 
 const PLACEHOLDER_IMAGE = 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&auto=format&fit=crop&q=80';
 
@@ -123,6 +125,23 @@ export default function BlogPage() {
 
       <div className="border-t border-gray-100">
         <RelatedPosts posts={relatedPosts.slice(0, 3)} />
+      </div>
+
+      <div className="mt-12 border-t border-gray-100 pt-8">
+        <h2 className="text-2xl font-bold mb-6">Yorumlar</h2>
+        <div className="mb-8">
+          <CommentForm postId={post.id} onCommentAdded={() => {
+            // Yorumlar listesini yenile
+            const commentListElement = document.getElementById('comments-list');
+            if (commentListElement) {
+              const event = new Event('refreshComments');
+              commentListElement.dispatchEvent(event);
+            }
+          }} />
+        </div>
+        <div id="comments-list">
+          <CommentList postId={post.id} />
+        </div>
       </div>
     </article>
   );
