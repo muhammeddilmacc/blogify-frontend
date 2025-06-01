@@ -18,6 +18,9 @@ export class AuthService {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const { user } = userCredential;
       
+      // Email adresinden kullanıcı adını oluştur
+      const name = email.split('@')[0];
+      
       const response = await fetch(`${API_URL}/api/auth/register`, {
         method: 'POST',
         headers: {
@@ -28,6 +31,8 @@ export class AuthService {
           token: await user.getIdToken(),
           userData: {
             email: user.email,
+            name: name,
+            lastLoginAt: new Date()
           },
         }),
       });
@@ -197,6 +202,28 @@ export class AuthService {
         }),
       });
     } catch (error) {
+      throw error;
+    }
+  }
+
+  async checkUserRole(uid: string): Promise<string> {
+    try {
+      const response = await fetch(`${API_URL}/api/users/get-role`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ uid }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to get user role');
+      }
+
+      const data = await response.json();
+      return data.role;
+    } catch (error) {
+      console.error('Error checking user role:', error);
       throw error;
     }
   }

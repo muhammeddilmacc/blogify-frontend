@@ -1,6 +1,6 @@
 'use client';
 
-import { AuthProvider } from '@/contexts/AuthContext';
+import { AuthProvider } from '@/context/AuthContext';
 import { NotificationProvider } from '@/context/NotificationContext';
 
 export default function ClientLayout({

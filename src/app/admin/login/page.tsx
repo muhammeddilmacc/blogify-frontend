@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/context/AuthContext';
 import Cookies from 'js-cookie';
 import { User } from 'firebase/auth';
 
@@ -27,13 +27,26 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
+      // Önce normal login işlemi
       const user: User = await authService.login(formData.email, formData.password);
+      
+      // Kullanıcı rolünü kontrol et
+      const userRole = await authService.checkUserRole(user.uid);
+      
+      if (userRole !== 'admin') {
+        setError('Bu sayfaya erişim yetkiniz bulunmamaktadır');
+        // Yetkisiz kullanıcı için çıkış yap
+        await authService.logout();
+        return;
+      }
+
       // Session cookie'sini ayarla (24 saat geçerli)
       Cookies.set('session', user.uid, { expires: 1 });
       router.push('/admin');
     } catch (err: unknown) {
       console.error(err);
       const error = err as FirebaseError;
+      
       if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
         setError('E-posta veya şifre hatalı');
       } else if (error.code === 'auth/too-many-requests') {
@@ -115,7 +128,7 @@ export default function LoginPage() {
                 disabled={loading}
                 value={formData.email}
                 onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-t-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
               />
             </div>
             <div>
@@ -131,7 +144,7 @@ export default function LoginPage() {
                 disabled={loading}
                 value={formData.password}
                 onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-b-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
               />
             </div>
           </div>

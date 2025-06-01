@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
 import { FirebaseError } from 'firebase/app';
 
@@ -28,7 +28,7 @@ export function RegisterForm() {
 
     try {
       await authService.register(email, password);
-      router.push('/auth/login');
+      router.push('/');
     } catch (error) {
       if (error instanceof FirebaseError) {
         setError(error.message);
