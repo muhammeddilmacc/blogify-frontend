@@ -75,6 +75,15 @@ const CommentList: React.FC<CommentListProps> = ({ postId, onCommentDeleted }) =
     }
   };
 
+  const getInitials = (email: string) => {
+    const name = email.split('@')[0];
+    return name.charAt(0).toUpperCase();
+  };
+
+  const getDisplayName = (email: string) => {
+    return email.split('@')[0];
+  };
+
   if (loading) {
     return <div className="flex justify-center p-4">Yorumlar yükleniyor...</div>;
   }
@@ -84,59 +93,70 @@ const CommentList: React.FC<CommentListProps> = ({ postId, onCommentDeleted }) =
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       {comments.map(comment => (
-        <div key={comment.id} className="bg-white p-4 rounded-lg shadow">
-          <div className="flex justify-between items-start">
-            <div className="flex items-center space-x-2">
-              <div className="font-medium">{comment.userEmail}</div>
-              <div className="text-sm text-gray-500">
-                {format(new Date(comment.createdAt), 'd MMMM yyyy HH:mm', { locale: tr })}
+        <div key={comment.id} className="bg-blue-50 p-6 rounded-xl shadow-sm border border-gray-100">
+          <div className="flex items-start space-x-4">
+            <div className="flex-shrink-0">
+              <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-medium">
+                {getInitials(comment.userEmail)}
               </div>
             </div>
-            {auth.currentUser?.uid === comment.userId && (
-              <div className="flex space-x-2">
-                <button
-                  onClick={() => startEditing(comment)}
-                  className="text-blue-600 hover:text-blue-800"
-                >
-                  Düzenle
-                </button>
-                <button
-                  onClick={() => handleDelete(comment.id)}
-                  className="text-red-600 hover:text-red-800"
-                >
-                  Sil
-                </button>
+            <div className="flex-grow">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="font-medium text-gray-900">
+                    {getDisplayName(comment.userEmail)}
+                  </div>
+                  <div className="text-sm text-gray-500">
+                    {format(new Date(comment.createdAt), 'dd.MM.yyyy HH:mm', { locale: tr })}
+                  </div>
+                </div>
+                {auth.currentUser?.uid === comment.userId && (
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => startEditing(comment)}
+                      className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    >
+                      Düzenle
+                    </button>
+                    <button
+                      onClick={() => handleDelete(comment.id)}
+                      className="text-red-600 hover:text-red-800 text-sm font-medium"
+                    >
+                      Sil
+                    </button>
+                  </div>
+                )}
               </div>
-            )}
+              {editingCommentId === comment.id ? (
+                <div className="mt-3">
+                  <textarea
+                    value={editContent}
+                    onChange={(e) => setEditContent(e.target.value)}
+                    className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700"
+                    rows={3}
+                  />
+                  <div className="flex justify-end space-x-2 mt-2">
+                    <button
+                      onClick={() => setEditingCommentId(null)}
+                      className="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-800 font-medium"
+                    >
+                      İptal
+                    </button>
+                    <button
+                      onClick={() => handleUpdate(comment.id)}
+                      className="px-4 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium transition-colors"
+                    >
+                      Güncelle
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <p className="mt-2 text-gray-700">{comment.content}</p>
+              )}
+            </div>
           </div>
-          {editingCommentId === comment.id ? (
-            <div className="mt-2">
-              <textarea
-                value={editContent}
-                onChange={(e) => setEditContent(e.target.value)}
-                className="w-full p-2 border rounded"
-                rows={3}
-              />
-              <div className="flex justify-end space-x-2 mt-2">
-                <button
-                  onClick={() => setEditingCommentId(null)}
-                  className="px-3 py-1 text-gray-600 hover:text-gray-800"
-                >
-                  İptal
-                </button>
-                <button
-                  onClick={() => handleUpdate(comment.id)}
-                  className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
-                >
-                  Güncelle
-                </button>
-              </div>
-            </div>
-          ) : (
-            <p className="mt-2">{comment.content}</p>
-          )}
         </div>
       ))}
     </div>
