@@ -10,6 +10,7 @@ import { BlogNotFound } from '@/features/blogs/components/BlogNotFound';
 import { usePostService } from '@/features/blogs/services/usePostService';
 import { CategoryType } from '@/features/blogs/types/blog.types';
 import './page.css';
+import { LikeButton } from '@/features/blogs/components/LikeButton';
 
 const PLACEHOLDER_IMAGE = 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&auto=format&fit=crop&q=80';
 
@@ -111,10 +112,13 @@ export default function BlogPage() {
       />
 
       <div className="flex justify-end items-center mb-12">
-        <ShareButtons 
-          url={typeof window !== 'undefined' ? window.location.href : ''}
-          title={post.title}
-        />
+        <div className="flex items-center gap-4">
+          <LikeButton postId={post.id} initialLikes={post.likes} size="lg" />
+          <ShareButtons 
+            url={typeof window !== 'undefined' ? window.location.href : ''}
+            title={post.title}
+          />
+        </div>
       </div>
 
       <div className="border-t border-gray-100">
