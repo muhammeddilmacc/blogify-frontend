@@ -131,7 +131,7 @@ export default function PostCard({ post }: PostCardProps) {
                 </svg>
                 <span>{likeCount}</span>
               </button>
-              <span className="text-blue-600 font-medium">Devamını Oku →</span>
+              <span className="text-blue-600 font-medium">Devamını Oku</span>
             </div>
           </div>
         </div>
