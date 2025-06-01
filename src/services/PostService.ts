@@ -159,13 +159,16 @@ export class PostService {
     }
   }
 
-  async getPostById(id: string): Promise<Blog> {
+  async getPostById(id: string): Promise<Blog | null> {
     const response = await fetch(`${this.baseUrl}/id/${id}`, {
       credentials: 'include',
     });
 
     if (!response.ok) {
-      throw new Error('Post bulunamadı');
+      if (response.status === 404) {
+        return null;
+      }
+      throw new Error('Post detayları alınırken bir hata oluştu');
     }
 
     return response.json();
@@ -262,6 +265,40 @@ export class PostService {
 
     const result = await response.json();
     return result.data;
+  }
+
+  async likePost(id: string): Promise<void> {
+    const response = await fetch(`${this.baseUrl}/${id}/like`, {
+      method: 'POST',
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      throw new Error('Post beğenilirken bir hata oluştu');
+    }
+  }
+
+  async unlikePost(id: string): Promise<void> {
+    const response = await fetch(`${this.baseUrl}/${id}/unlike`, {
+      method: 'POST',
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      throw new Error('Post beğenisi kaldırılırken bir hata oluştu');
+    }
+  }
+
+  async isPostLiked(id: string): Promise<{ isLiked: boolean }> {
+    const response = await fetch(`${this.baseUrl}/${id}/is-liked`, {
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      throw new Error('Beğeni durumu kontrol edilirken bir hata oluştu');
+    }
+
+    return response.json();
   }
 }
 

@@ -21,6 +21,9 @@ export interface Blog {
   shareCount: number;
   totalViewDuration: number;
   lastViewedAt?: Date;
+  likes: number;
+  likedBy: string[];
+  isLiked?: boolean;
 }
 
 export interface BlogFormData extends Omit<Blog, 'id' | 'date' | 'author' | 'slug' | 'image' | 'views' | 'shareCount' | 'totalViewDuration' | 'lastViewedAt'> {
